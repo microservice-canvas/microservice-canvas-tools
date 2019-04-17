@@ -1,0 +1,8 @@
+
+
+dependencies {
+    compile project(":microservice-canvas-extractor-tram")
+
+    compile "io.eventuate.tram.sagas:eventuate-tram-sagas-simple-dsl:$eventuateTramSagasVersion"
+
+}

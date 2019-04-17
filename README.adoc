@@ -1,0 +1,53 @@
+
+== Self-documenting services
+
+The microservice canvas is a great way to document a service.
+One drawback, however, is that like all forms of documentation, it often becomes out of date.
+
+This project keeps the canvas up to date by dynamically generating a microservice canvas for a running service using a combination of reflection/introspection and explicit metadata.
+
+You can access a service's canvas via the following endpoints:
+
+* `/canvas.adoc` - returns the Asciidoc canvas
+* `/canvas.html` - returns the HTML canvas
+* `/canvas.json` - returns the JSON representation of a canvas
+* `/canvas.yml` - returns the YAML representation of a canvas
+
+=== Supported frameworks
+
+The following frameworks are supported:
+
+* Spring Boot
+* Eventuate Tram
+* Eventuate Tram sagas
+
+=== How it works
+
+The canvas is built from the following sources:
+
+|===
+| Source | Provides
+| `${spring.application.name}` | Service name
+| Bean in `ApplicationContext` annotated with `@ServiceDescription` | Service name and capabilities
+| `@Controllers` in the Spring `ApplicationContext` | Synchronous API operations
+| Eventuate Tram command handlers | Asynchronous API operations
+| Eventuate Tram domain event handlers | Event subscription dependencies
+| Eventuate Tram Saga saga participant proxy beans| Asynchronous dependencies
+|===
+
+
+=== Getting started
+
+First, you need to this dependency `io.microservices.tools.canvas:microservice-canvas-springmvc:LATEST_VERSION`.
+
+Second, `@Import` `MicroserviceCanvasWebConfiguration`.
+
+Finally, add these optional dependencies:
+
+|===
+| If you are using | Then add this dependency
+| Eventuate Tram | `io.microservices.tools.canvas:microservice-canvas-extractor-tram:LATEST_VERSION`
+| Eventuate Tram Sagas | `io.microservices.tools.canvas:microservice-canvas-extractor-tram-sagas:LATEST_VERSION`
+|===
+
+

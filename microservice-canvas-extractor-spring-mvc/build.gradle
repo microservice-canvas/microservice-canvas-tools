@@ -1,0 +1,6 @@
+
+
+dependencies {
+    compile project(":microservice-canvas-extractor-spring")
+    compile "org.springframework.boot:spring-boot-starter-web:$springBootVersion"
+}

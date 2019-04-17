@@ -1,0 +1,166 @@
+<html xmlns:th="http://www.w3.org/1999/xhtml">
+
+<head>
+
+    <style type="text/css">
+        .microservice-canvas {
+            table-layout: fixed;
+            width: 80%;
+            border-collapse: collapse;
+            border: 1px solid black;
+            margin-left: 10%
+        }
+
+        .microservice-canvas td {
+            border: 1px solid black;
+        }
+
+        .microservice-canvas-name-label {
+
+        }
+
+        .microservice-canvas-name {
+            font-size: large;
+        }
+    </style>
+</head>
+
+<body>
+<table class="microservice-canvas">
+    <tr>
+        <td colspan="2" class="microservice-canvas-name-label">Name:</td>
+        <td colspan="6" class="microservice-canvas-name"  th:text="${service.name}">Service Name</td>
+    </tr>
+    <tr>
+        <td colspan="2">Description:</td>
+        <td colspan="6" th:text="${service.description}">Service Description</td>
+    </tr>
+    <tr>
+        <td colspan="8">Capabilities</td>
+    </tr>
+    <tr>
+        <td colspan="8">
+            <ul>
+                <li th:each="c : ${service.capabilities}"><span th:text="${c}">Capability A</span>
+
+                </li>
+            </ul>
+        </td>
+    </tr>
+    <tr>
+        <td colspan="8">Service API</td>
+    </tr>
+    <tr>
+        <td colspan="3">Commands</td>
+        <td colspan="3">Queries</td>
+        <td colspan="2">Events</td>
+    </tr>
+    <tr>
+        <td colspan="3">
+
+            <ul>
+                <li th:each="c : ${service.apiCommands}">
+                    <span th:text="${c.name}"></span>
+                    <ul>
+                        <li th:each="ep : ${c.endpoints}">
+                                <span th:switch="${ep.type.name()}">
+                                    <span th:case="'SYNCHRONOUS'"> <span th:text="${ep.method}"></span>&nbsp;<span th:text="${ep.path}"></span></span>
+                                    <span th:case="'ASYNCHRONOUS'"><span th:text="${ep.channel}"></span></span>
+                                </span>
+                        </li>
+                    </ul>
+
+                </li>
+            </ul>
+
+        </td>
+        <td colspan="3">
+
+            <ul>
+                <li th:each="c : ${service.apiQueries}">
+                    <span th:text="${c.name}"></span>
+                    <ul>
+                        <li th:each="ep : ${c.endpoints}">
+                                <span th:switch="${ep.type.name()}">
+                                    <span th:case="'SYNCHRONOUS'"> <span th:text="${ep.method}"></span>&nbsp;<span th:text="${ep.path}"></span></span>
+                                    <span th:case="'ASYNCHRONOUS'"><span th:text="${ep.channel}"></span></span>
+                                </span>
+                        </li>
+                    </ul>
+
+                </li>
+            </ul>
+
+        </td>
+        <td colspan="2">
+
+            <div th:each="aes : ${service.apiEvents}">
+
+                <p th:text="${aes.aggregateType}">Aggregate Type</p>
+
+                <ul>
+                    <li th:each="event : ${aes.eventTypes}"><span th:text="${event}">Event type</span>
+                    </li>
+                </ul>
+            </div>
+        </td>
+    </tr>
+
+    <tr>
+        <td colspan="3">Non-functional requirements</td>
+        <td colspan="5">TODO</td>
+    </tr>
+
+    <tr>
+        <td colspan="8">Observability</td>
+    </tr>
+
+    <tr>
+        <td colspan="8">Key Metrics</td>
+    </tr>
+
+    <tr>
+        <td colspan="8">TODO</td>
+    </tr>
+
+    <tr>
+        <td colspan="4">Health Check endpoint</td>
+        <td colspan="4">TODO</td>
+    </tr>
+
+    <tr>
+        <td colspan="8">Implementation</td>
+    </tr>
+
+    <tr>
+        <td colspan="4">Invokes</td>
+        <td colspan="4">Subscribes to</td>
+    </tr>
+    <tr>
+        <td colspan="4">
+            <div th:each="sos : ${service.dependenciesAsynchronousOperations}">
+                <p th:text="${sos.channel}">Channel</p>
+                <ul>
+                    <li th:each="operation: ${sos.operations}">
+                        <span th:text="${operation}"></span>
+                    </li>
+                </ul>
+            </div>
+        </td>
+        <td colspan="4">
+            <div th:each="aes : ${service.dependenciesEvents}">
+
+                <p th:text="${aes.aggregateType}">Aggregate Type</p>
+
+                <ul>
+                    <li th:each="event : ${aes.eventTypes}"><span th:text="${event}">Event type</span>
+                    </li>
+                </ul>
+            </div>
+
+        </td>
+    </tr>
+
+</table>
+</body>
+</html>

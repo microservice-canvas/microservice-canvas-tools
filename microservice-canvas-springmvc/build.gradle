@@ -1,0 +1,11 @@
+
+
+dependencies {
+    compile project(":microservice-canvas-render")
+    compile project(":microservice-canvas-extractor-spring")
+    compile project(":microservice-canvas-extractor-spring-mvc")
+    compile 'com.fasterxml.jackson.module:jackson-module-kotlin:2.9.8'
+
+    testCompile "org.springframework.boot:spring-boot-starter-test:$springBootVersion"
+
+}

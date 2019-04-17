@@ -1,0 +1,114 @@
+= [[${service.name}]]
+
+[cols="8*"]
+|===
+3+a| Name: 5+a| [[${service.name}]]
+
+3+a| *Description:*
+5+a|
+
+[[${service.description}]]
+
+8+a| *Capabilities*
+8+a|
+
+[# th:each="c : ${service.capabilities}" ]
+* [(${c})]
+[/]
+
+8+| *Service API*
+3+| Commands 3+| Queries 2+| Events Published
+3+a|
+
+[# th:each="c : ${service.apiCommands}" ]
+* [(${c.name})]
+[# th:each="ep : ${c.endpoints}" ]
+[# th:switch="${ep.type.name()}" ]
+[# th:case="'SYNCHRONOUS'" ]
+** [(${ep.method})] [(${ep.path})]
+[/]
+[# th:case="'ASYNCHRONOUS'" ]
+** Channel: [(${ep.channel})]
+[/]
+[/]
+[/]
+[/]
+
+3+a|
+
+[# th:each="c : ${service.apiQueries}" ]
+* [(${c.name})]
+[# th:each="ep : ${c.endpoints}" ]
+[# th:switch="${ep.type.name()}" ]
+[# th:case="'SYNCHRONOUS'" ]
+** [(${ep.method})] [(${ep.path})]
+[/]
+[# th:case="'ASYNCHRONOUS'" ]
+** [(${ep.channel})]
+[/]
+[/]
+[/]
+[/]
+
+
+
+2+a|
+
+[# th:each="aes : ${service.apiEvents}" ]
+[(${aes.aggregateType})]:
+
+[# th:each="event : ${aes.eventTypes}" ]
+
+* [(${event})]
+[/]
+
+[/]
+
+
+3+| Non-functional requirements 5+a|
+
+TODO
+
+
+8+| *Observability*
+8+| Key metrics
+8+a|
+
+TODO
+
+4+| Health check endpoint
+4+| TODO
+
+
+
+8+| *Implementation*
+8+| Domain Model
+8+a| TODO
+8+| *Dependencies*
+4+| Invokes 4+| Subscribes to
+4+a|
+
+[# th:each="sos: ${service.dependenciesAsynchronousOperations}" ]
+[(${sos.channel})]:
+
+[# th:each="operation: ${sos.operations}" ]
+
+* [(${operation})]:
+[/]
+
+[/]
+
+
+4+a|
+
+[# th:each="ces: ${service.dependenciesEvents}" ]
+[(${ces.aggregateType})]:
+
+[# th:each="event: ${ces.eventTypes}" ]
+
+* [(${event})]:
+[/]
+
+[/]
+
+|===

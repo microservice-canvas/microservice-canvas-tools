@@ -1,0 +1,10 @@
+
+include 'microservice-canvas-model'
+include 'microservice-canvas-builder'
+include 'microservice-canvas-extractor'
+include 'microservice-canvas-extractor-spring'
+include 'microservice-canvas-extractor-spring-mvc'
+include 'microservice-canvas-extractor-tram'
+include 'microservice-canvas-extractor-tram-sagas'
+include 'microservice-canvas-render'
+include 'microservice-canvas-springmvc'
