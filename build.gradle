@@ -45,10 +45,10 @@ subprojects {
         key = System.getenv('BINTRAY_KEY')
         configurations = ['archives']
         pkg {
-            repo = "eventuate-maven-$bintrayRepoType"
-            name = 'eventuate-tram-sagas'
+            repo = "microservice-canvas-tools-$bintrayRepoType"
+            name = 'microservice-canvas-tools'
             licenses = ['Apache-2.0']
-            vcsUrl = 'https://github.com/eventuate-tram/eventuate-tram-sagas'
+            vcsUrl = 'https://github.com/microservice-canvas/microservice-canvas-tools'
         }
     }
 
