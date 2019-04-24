@@ -2,6 +2,7 @@ package io.microservices.canvas.extractor.spring;
 
 import io.microservices.canvas.builder.ServiceModelBuilder;
 import io.microservices.canvas.extractor.spring.annotations.ServiceDescription;
+import org.springframework.core.annotation.AnnotationUtils;
 import org.springframework.stereotype.Component;
 
 import java.util.Map;
@@ -12,7 +13,7 @@ public class DescriptionAndCapabilityExtractor extends AbstractSpringContextMode
   public void extract(ServiceModelBuilder builder) {
     Map<String, Object> beans = applicationContext.getBeansWithAnnotation(ServiceDescription.class);
     beans.forEach((name, bean) -> {
-      ServiceDescription a = bean.getClass().getDeclaredAnnotation(ServiceDescription.class);
+      ServiceDescription a = AnnotationUtils.findAnnotation(bean.getClass(), ServiceDescription.class);
       builder.withDescription(a.description()).withCapabilities(a.capabilities());
     });
   }
