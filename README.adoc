@@ -38,9 +38,20 @@ The canvas is built from the following sources:
 
 === Getting started
 
+image::https://api.bintray.com/packages/eventuateio-oss/microservice-canvas-tools-release/microservice-canvas-tools/images/download.svg[link="https://bintray.com/eventuateio-oss/microservice-canvas-tools-release/microservice-canvas-tools/_latestVersion"]
+
+
 First, you need to this dependency `io.microservices.tools.canvas:microservice-canvas-springmvc:LATEST_VERSION`.
 
-Second, `@Import` `MicroserviceCanvasWebConfiguration`.
+Second, until it's available on Jcenter you will need to add this repository:
+
+```
+repositories {
+    maven { url 'https://dl.bintray.com/eventuateio-oss/microservice-canvas-tools-release' }
+}
+```
+
+Third, `@Import` `MicroserviceCanvasWebConfiguration`.
 
 Finally, add these optional dependencies:
 
@@ -51,3 +62,6 @@ Finally, add these optional dependencies:
 |===
 
 
+=== Example usage
+
+This https://github.com/microservices-patterns/ftgo-application/commit/776d5fcab4bb45416f487f733380630468df5933[commit] adds canvas support to the https://github.com/microservices-patterns/ftgo-application[FTGO application's Order Service].
