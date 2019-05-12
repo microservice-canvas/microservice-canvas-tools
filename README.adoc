@@ -1,7 +1,7 @@
 
 == Self-documenting services
 
-The microservice canvas is a great way to document a service.
+The https://github.com/cer/microservice-canvas[microservice canvas] is a great way to document a service.
 One drawback, however, is that like all forms of documentation, it often becomes out of date.
 
 This project keeps the canvas up to date by dynamically generating a microservice canvas for a running service using a combination of reflection/introspection and explicit metadata.
