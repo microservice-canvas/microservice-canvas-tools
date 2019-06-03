@@ -4,17 +4,13 @@ import io.microservices.canvas.asciidoc.ServiceToJSon;
 import io.microservices.canvas.model.Service;
 import org.apache.commons.cli.*;
 import org.apache.commons.io.FileUtils;
-import org.springframework.boot.CommandLineRunner;
-import org.springframework.stereotype.Component;
 
 import java.io.File;
 
 import static io.microservices.canvas.asciidoc.ServiceToJSon.fromYaml;
 
-@Component
-public class CanvasCommandLineRunner implements CommandLineRunner {
+public class CanvasCommandLineRunner {
 
-  @Override
   public void run(String... args) throws Exception {
 
 
