@@ -24,3 +24,6 @@ $PREFIX ./gradlew -P version=${VERSION} \
   -P bintrayRepoType=${BINTRAY_REPO_TYPE} \
   testClasses bintrayUpload
 
+$PREFIX docker login -u ${DOCKER_USER_ID?} -p ${DOCKER_PASSWORD?}
+
+./gradlew composePush

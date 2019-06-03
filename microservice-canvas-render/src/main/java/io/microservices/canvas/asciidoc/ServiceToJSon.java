@@ -34,6 +34,18 @@ public class ServiceToJSon {
     }
   }
 
+  public static <T> T fromYaml(String yaml, Class<T> targetType) {
+    ObjectMapper om = new ObjectMapper(new YAMLFactory())
+            .addMixIn(OperationEndpoint.class, OperationEndpointMixin.class)
+            .registerModule(new KotlinModule())
+            ;
+    try {
+      return om.readValue(yaml, targetType);
+    } catch (IOException e) {
+      throw new RuntimeException(e);
+    }
+  }
+
   public static <T> T fromJson(String json, Class<T> targetType) {
     ObjectMapper om = new ObjectMapper()
             .addMixIn(OperationEndpoint.class, OperationEndpointMixin.class)

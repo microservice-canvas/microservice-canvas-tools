@@ -1,0 +1,130 @@
+---
+name: "ftgo-order-service"
+description: "Manages Orders"
+capabilities:
+  - "Order Management"
+api:
+  operations:
+    commands:
+      - name: "cancel"
+        type: "COMMAND"
+        endpoints:
+          - method: "POST"
+            path: "/orders/{orderId}/cancel"
+            type: "SYNCHRONOUS"
+      - name: "net.chrisrichardson.ftgo.orderservice.sagaparticipants.RejectOrderCommand"
+        type: "COMMAND"
+        endpoints:
+          - channel: "orderService"
+            type: "ASYNCHRONOUS"
+      - name: "net.chrisrichardson.ftgo.orderservice.sagaparticipants.ConfirmReviseOrderCommand"
+        type: "COMMAND"
+        endpoints:
+          - channel: "orderService"
+            type: "ASYNCHRONOUS"
+      - name: "revise"
+        type: "COMMAND"
+        endpoints:
+          - method: "POST"
+            path: "/orders/{orderId}/revise"
+            type: "SYNCHRONOUS"
+      - name: "net.chrisrichardson.ftgo.orderservice.sagaparticipants.ConfirmCancelOrderCommand"
+        type: "COMMAND"
+        endpoints:
+          - channel: "orderService"
+            type: "ASYNCHRONOUS"
+      - name: "create"
+        type: "COMMAND"
+        endpoints:
+          - method: "POST"
+            path: "/orders"
+            type: "SYNCHRONOUS"
+      - name: "net.chrisrichardson.ftgo.orderservice.sagaparticipants.BeginReviseOrderCommand"
+        type: "COMMAND"
+        endpoints:
+          - channel: "orderService"
+            type: "ASYNCHRONOUS"
+      - name: "net.chrisrichardson.ftgo.orderservice.sagaparticipants.BeginCancelCommand"
+        type: "COMMAND"
+        endpoints:
+          - channel: "orderService"
+            type: "ASYNCHRONOUS"
+      - name: "net.chrisrichardson.ftgo.orderservice.sagaparticipants.ApproveOrderCommand"
+        type: "COMMAND"
+        endpoints:
+          - channel: "orderService"
+            type: "ASYNCHRONOUS"
+      - name: "net.chrisrichardson.ftgo.orderservice.sagaparticipants.UndoBeginReviseOrderCommand"
+        type: "COMMAND"
+        endpoints:
+          - channel: "orderService"
+            type: "ASYNCHRONOUS"
+      - name: "net.chrisrichardson.ftgo.orderservice.sagaparticipants.UndoBeginCancelCommand"
+        type: "COMMAND"
+        endpoints:
+          - channel: "orderService"
+            type: "ASYNCHRONOUS"
+    queries:
+      - name: "getServiceDefinitionAsJson"
+        type: "COMMAND"
+        endpoints:
+          - method: "GET"
+            path: "/canvas.json"
+            type: "SYNCHRONOUS"
+      - name: "getAsciiDocCanvas"
+        type: "COMMAND"
+        endpoints:
+          - method: "GET"
+            path: "/canvas.adoc"
+            type: "SYNCHRONOUS"
+      - name: "getServiceDefinitionAsHtml"
+        type: "COMMAND"
+        endpoints:
+          - method: "GET"
+            path: "/canvas.html"
+            type: "SYNCHRONOUS"
+      - name: "getOrder"
+        type: "COMMAND"
+        endpoints:
+          - method: "GET"
+            path: "/orders/{orderId}"
+            type: "SYNCHRONOUS"
+      - name: "getRestaurant"
+        type: "COMMAND"
+        endpoints:
+          - method: "GET"
+            path: "/restaurants/{restaurantId}"
+            type: "SYNCHRONOUS"
+      - name: "getServiceDefinitionAsYaml"
+        type: "COMMAND"
+        endpoints:
+          - method: "GET"
+            path: "/canvas.yml"
+            type: "SYNCHRONOUS"
+  events:
+    publishedEvents:
+      - aggregateType: "net.chrisrichardson.ftgo.orderservice.domain.Order"
+        eventTypes:
+          - "net.chrisrichardson.ftgo.orderservice.api.events.OrderDomainEvent"
+dependencies:
+  asynchronousOperations:
+    - channel: "consumerService"
+      operations:
+        - "net.chrisrichardson.ftgo.consumerservice.api.ValidateOrderByConsumer"
+    - channel: "kitchenService"
+      operations:
+        - "net.chrisrichardson.ftgo.kitchenservice.api.ConfirmCreateTicket"
+        - "net.chrisrichardson.ftgo.kitchenservice.api.CreateTicket"
+        - "net.chrisrichardson.ftgo.kitchenservice.api.CancelCreateTicket"
+    - channel: "orderService"
+      operations:
+        - "net.chrisrichardson.ftgo.orderservice.sagaparticipants.RejectOrderCommand"
+        - "net.chrisrichardson.ftgo.orderservice.sagaparticipants.ApproveOrderCommand"
+    - channel: "accountingService"
+      operations:
+        - "net.chrisrichardson.ftgo.accountservice.api.AuthorizeCommand"
+  events:
+    - aggregateType: "net.chrisrichardson.ftgo.restaurantservice.domain.Restaurant"
+      eventTypes:
+        - "net.chrisrichardson.ftgo.restaurantservice.events.RestaurantCreated"
+        - "net.chrisrichardson.ftgo.restaurantservice.events.RestaurantMenuRevised"

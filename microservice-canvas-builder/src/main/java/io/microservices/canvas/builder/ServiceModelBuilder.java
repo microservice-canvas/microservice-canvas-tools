@@ -1,7 +1,6 @@
 package io.microservices.canvas.builder;
 
 import io.microservices.canvas.model.*;
-import org.jetbrains.annotations.NotNull;
 
 import java.util.*;
 
@@ -39,7 +38,6 @@ public class ServiceModelBuilder {
     return this;
   }
 
-  @NotNull
   private Operation getCommand(String operationName) {
     return commands.computeIfAbsent(operationName, (name) -> new Operation(name, OperationType.COMMAND, new LinkedList<>()));
   }
@@ -49,7 +47,6 @@ public class ServiceModelBuilder {
     return this;
   }
 
-  @NotNull
   private Operation getQuery(String operationName) {
     return queries.computeIfAbsent(operationName, (name) -> new Operation(name, OperationType.COMMAND, new LinkedList<>()));
   }

@@ -12,7 +12,7 @@ jobs:
           paths:
             - ~/.gradle
           key: microservice-canvas-tools-{{ checksum "gradle.properties" }}
-      - run: TERM=dumb ./gradlew build
+      - run: TERM=dumb ./build-and-test-all.sh
       - run:
           name: Save JUNIT test results
           command: |

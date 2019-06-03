@@ -1,0 +1,8 @@
+version: "3"
+services:
+  microservice-canvas-cli:
+    build:
+      context: ./microservice-canvas-cli
+      args:
+        VERSION: ${VERSION}
+    image: microservicesio/microservice-canvas-cli:${VERSION}

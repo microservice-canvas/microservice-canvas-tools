@@ -1,0 +1,23 @@
+buildscript {
+    repositories {
+        mavenCentral()
+    }
+    dependencies {
+        classpath("org.springframework.boot:spring-boot-gradle-plugin:$springBootVersion")
+    }
+}
+
+apply plugin: 'org.springframework.boot'
+
+dependencies {
+
+    compile project(":microservice-canvas-render")
+    compile "commons-io:commons-io:2.5"
+    compile "commons-cli:commons-cli:1.4"
+
+    compile "org.springframework.boot:spring-boot-starter:$springBootVersion"
+
+    testCompile "org.assertj:assertj-core:3.11.1"
+
+
+}

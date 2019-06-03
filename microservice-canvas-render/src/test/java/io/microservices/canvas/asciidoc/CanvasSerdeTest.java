@@ -32,6 +32,14 @@ public class CanvasSerdeTest {
   }
 
   @Test
+  public void shouldDeserializeFromYaml() throws JsonProcessingException {
+    String yaml = ServiceToJSon.toYaml(ServiceMother.service);
+    Service service = ServiceToJSon.fromYaml(yaml, Service.class);
+    assertEquals(ServiceMother.service, service);
+  }
+
+
+  @Test
   public void shouldSerializeToHtml() throws IOException {
     String json = ServiceToJSon.toHtml(ServiceMother.service);
     System.out.println(json);
