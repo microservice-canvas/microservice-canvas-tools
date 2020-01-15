@@ -26,4 +26,4 @@ $PREFIX ./gradlew -P version=${VERSION} \
 
 $PREFIX docker login -u ${DOCKER_USER_ID?} -p ${DOCKER_PASSWORD?}
 
-./gradlew composePush
+  ./gradlew -P version=${VERSION} assemble composeBuild composePush
