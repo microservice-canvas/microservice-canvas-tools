@@ -1,5 +1,4 @@
 
-apply plugin: PublicModulePlugin
 
 dependencies {
     compile project(":microservice-canvas-extractor-spring")
