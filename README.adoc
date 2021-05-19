@@ -38,20 +38,12 @@ The canvas is built from the following sources:
 
 === Getting started
 
-image::https://api.bintray.com/packages/eventuateio-oss/microservice-canvas-tools-release/microservice-canvas-tools/images/download.svg[link="https://bintray.com/eventuateio-oss/microservice-canvas-tools-release/microservice-canvas-tools/_latestVersion"]
+image::https://img.shields.io/maven-central/v/io.microservices.tools.canvas/microservice-canvas-tools[]
 
 
 First, you need to this dependency `io.microservices.tools.canvas:microservice-canvas-springmvc:LATEST_VERSION`.
 
-Second, until it's available on Jcenter you will need to add this repository:
-
-```
-repositories {
-    maven { url 'https://dl.bintray.com/eventuateio-oss/microservice-canvas-tools-release' }
-}
-```
-
-Third, `@Import` `MicroserviceCanvasWebConfiguration`.
+Second, `@Import` `MicroserviceCanvasWebConfiguration`.
 
 Finally, add these optional dependencies:
 

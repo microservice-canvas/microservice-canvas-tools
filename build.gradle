@@ -2,8 +2,12 @@ buildscript {
     repositories {
         mavenCentral()
         eventuateMavenRepoUrl.split(',').each { repoUrl -> maven { url repoUrl } }
+        maven {
+          url "https://plugins.gradle.org/m2/"
+        }
         jcenter()
     }
+
     dependencies {
         classpath "io.eventuate.plugins.gradle:eventuate-plugins-gradle-publish:$eventuatePluginsGradleVersion"
         classpath "com.avast.gradle:gradle-docker-compose-plugin:0.9.2"
@@ -29,9 +33,6 @@ subprojects {
     repositories {
         mavenCentral()
         jcenter()
-        maven {
-            url  "https://dl.bintray.com/eventuateio-oss/eventuate-maven-release"
-        }
         eventuateMavenRepoUrl.split(',').each { repoUrl -> maven { url repoUrl } }
     }
 
