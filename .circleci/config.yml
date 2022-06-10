@@ -1,39 +1,11 @@
-version: 2
-jobs:
-  build:
-    machine: true
-    working_directory: ~/microservice-canvas-tools
-    steps:
-      - checkout
-      - restore_cache:
-          keys:
-            - microservice-canvas-tools-{{ checksum "gradle.properties" }}
-            - microservice-canvas-tools-
-      - run: TERM=dumb ./gradlew testClasses aggregateJavaDocs
-      - save_cache:
-          paths:
-            - ~/.gradle
-          key: microservice-canvas-tools-{{ checksum "gradle.properties" }}
-      - run: TERM=dumb ./build-and-test-all.sh
-      - run:
-          name: Save JUNIT test results
-          command: |
-            mkdir -p ~/junit/
-            find . -type f -regex ".*/build/test-results/.*xml" -exec cp {} ~/junit/ \;
-          when: always
-      - store_test_results:
-          path: ~/junit
-      - store_artifacts:
-          path: ~/junit
-      - run:
-          name: Publish artifacts
-          command: |
-            TERM=dumb ./deploy-artifacts.sh
-          when: on_success
+version: 2.1
+orbs:
+  eventuate-gradle-build-and-test: "eventuate_io/eventuate-gradle-build-and-test@0.1.0"
 workflows:
   version: 2
   build-test-and-deploy:
     jobs:
-      - build:
+      - eventuate-gradle-build-and-test/build-and-test:
+          script: ./.circleci/build-and-deploy.sh
           context:
             - publish
