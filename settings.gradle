@@ -1,3 +1,5 @@
+rootProject.name="microservice-canvas-tools"
+
 
 include 'microservice-canvas-model'
 include 'microservice-canvas-builder'
