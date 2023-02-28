@@ -56,4 +56,10 @@ Finally, add these optional dependencies:
 
 === Example usage
 
+= An Eventuate project
+
+<img class="img-responsive" src="https://eventuate.io/i/logo.gif">
+
+This project is part of http://eventuate.io[Eventuate], which is a microservices collaboration platform.
+
 This https://github.com/microservices-patterns/ftgo-application/commit/776d5fcab4bb45416f487f733380630468df5933[commit] adds canvas support to the https://github.com/microservices-patterns/ftgo-application[FTGO application's Order Service].
