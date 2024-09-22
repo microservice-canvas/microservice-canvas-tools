@@ -11,25 +11,28 @@ buildscript {
 
 apply plugin: "com.gradleup.shadow"
 
+
 jar {
     manifest {
         attributes "Main-Class": "io.microservices.canvas.cli.MicroserviceCliMain"
     }
 
     from {
-        configurations.api.collect { it.isDirectory() ? it : zipTree(it) }
+        configurations.runtimeClasspath.collect { it.isDirectory() ? it : zipTree(it) }
     }
 }
 
+    tasks.withType(Jar).all { duplicatesStrategy 'WARN' }
 
 dependencies {
 
-    api project(":microservice-canvas-render")
-    api "commons-io:commons-io:2.5"
-    api "commons-cli:commons-cli:1.4"
+    implementation project(":microservice-canvas-render")
+    implementation "commons-io:commons-io:2.5"
+    implementation "commons-cli:commons-cli:1.4"
 
 
     testImplementation "org.assertj:assertj-core:3.11.1"
-
-
 }
+
+jar.dependsOn(":microservice-canvas-render:assemble")
+jar.dependsOn(":microservice-canvas-model:assemble")
