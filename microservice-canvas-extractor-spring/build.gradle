@@ -1,8 +1,8 @@
 
 
 dependencies {
-    compile project(":microservice-canvas-extractor")
+    api project(":microservice-canvas-extractor")
 
-    compile "org.springframework.boot:spring-boot-starter:$springBootVersion"
+    api "org.springframework.boot:spring-boot-starter:$springBootVersion"
 
 }

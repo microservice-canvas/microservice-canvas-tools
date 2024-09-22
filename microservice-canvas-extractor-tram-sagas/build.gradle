@@ -2,8 +2,8 @@
 
 
 dependencies {
-    compile project(":microservice-canvas-extractor-tram")
+    api project(":microservice-canvas-extractor-tram")
 
-    compile "io.eventuate.tram.sagas:eventuate-tram-sagas-spring-orchestration-simple-dsl:$eventuateTramSagasVersion"
+    api "io.eventuate.tram.sagas:eventuate-tram-sagas-spring-orchestration-simple-dsl:$eventuateTramSagasVersion"
 
 }

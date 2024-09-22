@@ -1,10 +1,10 @@
 
 
 dependencies {
-    compile project(":microservice-canvas-extractor-spring")
+    api project(":microservice-canvas-extractor-spring")
 
-    compile "io.eventuate.tram.core:eventuate-tram-spring-commands:$eventuateTramVersion"
-    compile "io.eventuate.tram.core:eventuate-tram-spring-events:$eventuateTramVersion"
-    compile "io.eventuate.tram.core:eventuate-tram-aggregate-domain-events:$eventuateTramVersion"
+    api "io.eventuate.tram.core:eventuate-tram-spring-commands:$eventuateTramVersion"
+    api "io.eventuate.tram.core:eventuate-tram-spring-events:$eventuateTramVersion"
+    api "io.eventuate.tram.core:eventuate-tram-aggregate-domain-events:$eventuateTramVersion"
 
 }

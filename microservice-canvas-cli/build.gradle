@@ -1,16 +1,15 @@
 buildscript {
     repositories {
         mavenCentral()
-        jcenter()
 
     }
 
     dependencies {
-        classpath 'com.github.jengelman.gradle.plugins:shadow:2.0.1'
+        classpath 'com.gradleup.shadow:shadow-gradle-plugin:8.3.2'
     }
 }
 
-apply plugin: 'com.github.johnrengelman.shadow'
+apply plugin: "com.gradleup.shadow"
 
 jar {
     manifest {
@@ -18,19 +17,19 @@ jar {
     }
 
     from {
-        configurations.compile.collect { it.isDirectory() ? it : zipTree(it) }
+        configurations.api.collect { it.isDirectory() ? it : zipTree(it) }
     }
 }
 
 
 dependencies {
 
-    compile project(":microservice-canvas-render")
-    compile "commons-io:commons-io:2.5"
-    compile "commons-cli:commons-cli:1.4"
+    api project(":microservice-canvas-render")
+    api "commons-io:commons-io:2.5"
+    api "commons-cli:commons-cli:1.4"
 
 
-    testCompile "org.assertj:assertj-core:3.11.1"
+    testImplementation "org.assertj:assertj-core:3.11.1"
 
 
 }

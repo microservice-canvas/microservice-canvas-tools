@@ -1,4 +1,4 @@
 
 dependencies {
-    compile project(":microservice-canvas-builder")
+    api project(":microservice-canvas-builder")
 }

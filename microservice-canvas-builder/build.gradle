@@ -1,5 +1,5 @@
 
 
 dependencies {
-    compile project(":microservice-canvas-model")
+    api project(":microservice-canvas-model")
 }
