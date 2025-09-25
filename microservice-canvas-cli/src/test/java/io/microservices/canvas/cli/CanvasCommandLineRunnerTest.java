@@ -1,11 +1,11 @@
 package io.microservices.canvas.cli;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import java.io.File;
 
-import static org.junit.Assert.assertTrue;
 import static org.assertj.core.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class CanvasCommandLineRunnerTest {
 
@@ -18,7 +18,7 @@ public class CanvasCommandLineRunnerTest {
     String[] args = new String[]{"--input", resource.substring("file:".length()), "--output", tmpFile.getAbsolutePath()};
     runner.run(args);
     long length = tmpFile.length();
-    assertTrue("Should be long file: " + length, length > 2000);
+    assertTrue(length > 2000, "Should be long file: " + length);
 
     assertThat(length).isGreaterThan(200);
   }

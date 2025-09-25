@@ -28,6 +28,7 @@ dependencies {
 
     implementation project(":microservice-canvas-render")
     implementation "commons-io:commons-io:2.5"
+    implementation "org.junit.jupiter:junit-jupiter:5.13.4"
     implementation "commons-cli:commons-cli:1.4"
 
 
@@ -36,3 +37,6 @@ dependencies {
 
 jar.dependsOn(":microservice-canvas-render:assemble")
 jar.dependsOn(":microservice-canvas-model:assemble")
+tasks.withType(Test).configureEach {
+    useJUnitPlatform()
+}

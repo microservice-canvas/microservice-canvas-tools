@@ -8,7 +8,7 @@ import io.microservices.canvas.model.OperationEndpoint;
 import io.microservices.canvas.model.Service;
 import org.thymeleaf.TemplateEngine;
 import org.thymeleaf.context.Context;
-import org.thymeleaf.spring5.SpringTemplateEngine;
+import org.thymeleaf.spring6.SpringTemplateEngine;
 import org.thymeleaf.templatemode.TemplateMode;
 import org.thymeleaf.templateresolver.ClassLoaderTemplateResolver;
 
@@ -17,7 +17,7 @@ import java.io.IOException;
 public class ServiceToJSon {
 
   public static <T> String toJson(T service) {
-    ObjectMapper om = new ObjectMapper().registerModule(new KotlinModule());
+    ObjectMapper om = new ObjectMapper().registerModule(new KotlinModule.Builder().build());
     try {
       return om.writeValueAsString(service);
     } catch (JsonProcessingException e) {
@@ -26,7 +26,7 @@ public class ServiceToJSon {
   }
 
   public static String toYaml(Service service) {
-    ObjectMapper om = new ObjectMapper(new YAMLFactory()).registerModule(new KotlinModule());
+    ObjectMapper om = new ObjectMapper(new YAMLFactory()).registerModule(new KotlinModule.Builder().build());
     try {
       return om.writeValueAsString(service);
     } catch (JsonProcessingException e) {
@@ -37,7 +37,7 @@ public class ServiceToJSon {
   public static <T> T fromYaml(String yaml, Class<T> targetType) {
     ObjectMapper om = new ObjectMapper(new YAMLFactory())
             .addMixIn(OperationEndpoint.class, OperationEndpointMixin.class)
-            .registerModule(new KotlinModule())
+            .registerModule(new KotlinModule.Builder().build())
             ;
     try {
       return om.readValue(yaml, targetType);
@@ -49,7 +49,7 @@ public class ServiceToJSon {
   public static <T> T fromJson(String json, Class<T> targetType) {
     ObjectMapper om = new ObjectMapper()
             .addMixIn(OperationEndpoint.class, OperationEndpointMixin.class)
-            .registerModule(new KotlinModule())
+            .registerModule(new KotlinModule.Builder().build())
             ;
     try {
       return om.readValue(json, targetType);

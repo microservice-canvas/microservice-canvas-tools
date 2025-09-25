@@ -19,11 +19,16 @@ dependencies {
 
     api project(":microservice-canvas-model")
     api("org.springframework.boot:spring-boot-starter-thymeleaf:$springBootVersion")
-    api 'com.fasterxml.jackson.module:jackson-module-kotlin:2.9.8'
-    api 'com.fasterxml.jackson.dataformat:jackson-dataformat-yaml:2.7.1'
+    api "com.fasterxml.jackson.module:jackson-module-kotlin:$jacksonVersion"
+    api "com.fasterxml.jackson.dataformat:jackson-dataformat-yaml:$jacksonVersion"
 
     testImplementation project(":microservice-canvas-builder")
     testImplementation "commons-io:commons-io:2.5"
+    testImplementation "org.hamcrest:hamcrest:2.2"
     implementation "org.jetbrains.kotlin:kotlin-stdlib:2.0.20"
+    implementation "org.junit.jupiter:junit-jupiter:5.13.4"
 
+}
+tasks.withType(Test).configureEach {
+    useJUnitPlatform()
 }

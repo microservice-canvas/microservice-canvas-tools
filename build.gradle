@@ -26,9 +26,6 @@ apply plugin: "io.eventuate.plugins.gradle.publish.EventuatePublish"
 subprojects {
     apply plugin: 'java'
 
-    sourceCompatibility = 1.8
-    targetCompatibility = 1.8
-
     repositories {
         mavenCentral()
         eventuateMavenRepoUrl.split(',').each { repoUrl -> maven { url repoUrl } }
@@ -36,13 +33,15 @@ subprojects {
 
     java {
         toolchain {
-            languageVersion = JavaLanguageVersion.of(8)
+            languageVersion = JavaLanguageVersion.of(17)
         }
     }
 
     dependencies {
-        testImplementation "junit:junit:4.12"
-        testImplementation "org.mockito:mockito-core:2.23.0"
+        testImplementation "org.mockito:mockito-core:4.11.0"
+        testImplementation "org.junit.jupiter:junit-jupiter:$junitVersion"
+        testRuntimeOnly "org.junit.platform:junit-platform-launcher:$junitPlatformLauncherVersion"
+
     }
 
 
@@ -65,4 +64,7 @@ dockerCompose {
 
     projectName = null
     startedServices = []
+}
+tasks.withType(Test).configureEach {
+    useJUnitPlatform()
 }

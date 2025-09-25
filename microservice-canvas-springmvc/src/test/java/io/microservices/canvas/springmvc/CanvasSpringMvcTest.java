@@ -1,22 +1,19 @@
 package io.microservices.canvas.springmvc;
 
 import org.hamcrest.CoreMatchers;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.Test;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.boot.web.server.LocalServerPort;
+import org.springframework.boot.test.web.server.LocalServerPort;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.web.client.RestTemplate;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertThat;
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
-@RunWith(SpringRunner.class)
 @SpringBootTest(classes=CanvasSpringMvcTest.CanvasSpringMvcTestConfiguration.class, webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 public class CanvasSpringMvcTest {
 
@@ -31,7 +28,7 @@ public class CanvasSpringMvcTest {
 
   @Test
   public void shouldGenerateAsciidoc() {
-    ResponseEntity<String> r = new RestTemplate().getForEntity(String.format("http://localhost:%s/canvas.adoc", port), String.class);
+    ResponseEntity<String> r = new RestTemplate().getForEntity("http://localhost:%s/canvas.adoc".formatted(port), String.class);
     assertEquals(HttpStatus.OK, r.getStatusCode());
     String asciidoc = r.getBody();
     System.out.println(asciidoc);
@@ -40,7 +37,7 @@ public class CanvasSpringMvcTest {
 
   @Test
   public void shouldGenerateJson() {
-    ResponseEntity<String> r = new RestTemplate().getForEntity(String.format("http://localhost:%s/canvas.json", port), String.class);
+    ResponseEntity<String> r = new RestTemplate().getForEntity("http://localhost:%s/canvas.json".formatted(port), String.class);
     assertEquals(HttpStatus.OK, r.getStatusCode());
     String json = r.getBody();
     System.out.println(json);
@@ -49,7 +46,7 @@ public class CanvasSpringMvcTest {
 
   @Test
   public void shouldGenerateYaml() {
-    ResponseEntity<String> r = new RestTemplate().getForEntity(String.format("http://localhost:%s/canvas.yml", port), String.class);
+    ResponseEntity<String> r = new RestTemplate().getForEntity("http://localhost:%s/canvas.yml".formatted(port), String.class);
     assertEquals(HttpStatus.OK, r.getStatusCode());
     String yaml = r.getBody();
     System.out.println(yaml);
@@ -58,7 +55,7 @@ public class CanvasSpringMvcTest {
 
   @Test
   public void shouldGenerateHtml() {
-    ResponseEntity<String> r = new RestTemplate().getForEntity(String.format("http://localhost:%s/canvas.html", port), String.class);
+    ResponseEntity<String> r = new RestTemplate().getForEntity("http://localhost:%s/canvas.html".formatted(port), String.class);
     assertEquals(HttpStatus.OK, r.getStatusCode());
     String html = r.getBody();
     System.out.println(html);

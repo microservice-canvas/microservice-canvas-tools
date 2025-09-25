@@ -2,12 +2,12 @@ package io.microservices.canvas.extractor.spring.springmvc;
 
 import io.microservices.canvas.builder.ServiceModelBuilder;
 import io.microservices.canvas.extractor.spring.AbstractSpringContextModelExtractor;
+import org.springframework.core.annotation.AnnotatedElementUtils;
 import org.springframework.core.annotation.AnnotationUtils;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Controller;
 import org.springframework.util.ReflectionUtils;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.*;
 
 import java.lang.reflect.Method;
 import java.util.Arrays;
@@ -36,23 +36,27 @@ public class ControllerExtractor extends AbstractSpringContextModelExtractor {
 
   void buildFromControllerMethod(ServiceModelBuilder builder, Class<?> controllerClass, Method method) {
     String basePath = basePath(controllerClass);
-    RequestMapping rm = AnnotationUtils.findAnnotation(method, RequestMapping.class);
+    RequestMapping rm = AnnotatedElementUtils.findMergedAnnotation(method, RequestMapping.class);
+    String[] methodPaths = (rm.value() != null && rm.value().length > 0) ? rm.value() : rm.path();
     if (isCommand(rm))
-      builder.addSynchronousCommandEndpoint(method.getName(), rm.method()[0].name(), resolvePath(basePath, rm.path()));
+      builder.addSynchronousCommandEndpoint(method.getName(), rm.method()[0].name(), resolvePath(basePath, methodPaths));
     if (isQuery(rm))
-      builder.addSynchronousQueryEndpoint(method.getName(), rm.method()[0].name(), resolvePath(basePath, rm.path()));
+      builder.addSynchronousQueryEndpoint(method.getName(), rm.method()[0].name(), resolvePath(basePath, methodPaths));
   }
 
   private String basePath(Class<?> controllerClass) {
     RequestMapping classRm = AnnotationUtils.findAnnotation(controllerClass, RequestMapping.class);
-    return classRm != null && classRm.path().length > 0 ? classRm.path()[0] : "";
+    if (classRm == null) return "";
+    String[] paths = (classRm.value() != null && classRm.value().length > 0) ? classRm.value() : classRm.path();
+    return paths.length > 0 ? paths[0] : "";
   }
 
   private String resolvePath(String basePath, String[] path) {
+    if (path == null || path.length == 0) {
+      return basePath.isEmpty() ? "/" : basePath;
+    }
     if (basePath.isEmpty())
       return path[0];
-    if (path.length == 0)
-      return basePath;
     String p = path[0];
     return basePath + (p.endsWith("/") || p.startsWith("/") ? "" : "/") + p;
   }

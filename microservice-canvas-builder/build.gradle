@@ -3,3 +3,6 @@
 dependencies {
     api project(":microservice-canvas-model")
 }
+tasks.withType(Test).configureEach {
+    useJUnitPlatform()
+}

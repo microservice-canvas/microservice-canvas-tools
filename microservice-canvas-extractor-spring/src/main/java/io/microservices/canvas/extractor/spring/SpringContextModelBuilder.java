@@ -5,7 +5,7 @@ import io.microservices.canvas.extractor.ServiceModelExtractor;
 import io.microservices.canvas.extractor.ServiceModelHolder;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import javax.annotation.PostConstruct;
+import jakarta.annotation.PostConstruct;
 import java.util.stream.Stream;
 
 public class SpringContextModelBuilder {

@@ -1,10 +1,10 @@
 package io.microservices.canvas.extractor.spring.springmvc;
 
 import io.microservices.canvas.builder.ServiceModelBuilder;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
@@ -14,7 +14,7 @@ public class ControllerExtractorTest {
   private ControllerExtractor extractor;
   private ServiceModelBuilder builder;
 
-  @Before
+  @BeforeEach
   public void setUp() {
     builder = mock(ServiceModelBuilder.class);
     extractor = new ControllerExtractor();
@@ -24,9 +24,9 @@ public class ControllerExtractorTest {
   public void shouldHandleSimpleCase() {
     class MyController1 {
 
-      @RequestMapping(method= RequestMethod.GET, path="/orders")
-      public void getOrders() {
-
+      @GetMapping("/orders")
+      public String getOrders() {
+          return "hello";
       }
 
     }
@@ -42,9 +42,9 @@ public class ControllerExtractorTest {
     @RequestMapping(path="/orders")
     class MyController2 {
 
-      @RequestMapping(method= RequestMethod.GET)
-      public void getOrders() {
-
+      @GetMapping
+      public String getOrders() {
+          return "hello";
       }
 
     }

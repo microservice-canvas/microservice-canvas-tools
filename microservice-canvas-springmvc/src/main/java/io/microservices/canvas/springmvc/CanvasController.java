@@ -8,8 +8,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.util.LinkedMultiValueMap;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.GetMapping;
 
 import java.util.function.Function;
 
@@ -19,7 +18,7 @@ public class CanvasController {
   @Autowired
   private ServiceModelHolder serviceModelHolder;
 
-  @RequestMapping(path = "/canvas.adoc", method= RequestMethod.GET)
+  @GetMapping("/canvas.adoc")
   public ResponseEntity<String> getAsciiDocCanvas() {
     return generateResponse(ServiceToJSon::toAsciidoc, "application/x-asciidoc");
   }
@@ -31,17 +30,17 @@ public class CanvasController {
     return new ResponseEntity<>(json, headers, HttpStatus.OK);
   }
 
-  @RequestMapping(path = "/canvas.json", method= RequestMethod.GET)
+  @GetMapping("/canvas.json")
   public ResponseEntity<String> getServiceDefinitionAsJson() {
     return generateResponse(ServiceToJSon::toJson, "application/json");
   }
 
-  @RequestMapping(path = "/canvas.yml", method= RequestMethod.GET)
+  @GetMapping("/canvas.yml")
   public ResponseEntity<String> getServiceDefinitionAsYaml() {
     return generateResponse(ServiceToJSon::toYaml, "application/x-yaml");
   }
 
-  @RequestMapping(path = "/canvas.html", method= RequestMethod.GET)
+  @GetMapping("/canvas.html")
   public ResponseEntity<String> getServiceDefinitionAsHtml() {
     return generateResponse(ServiceToJSon::toHtml, "text/html");
   }

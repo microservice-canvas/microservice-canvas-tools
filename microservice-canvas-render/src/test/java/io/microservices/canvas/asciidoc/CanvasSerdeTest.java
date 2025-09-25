@@ -3,12 +3,12 @@ package io.microservices.canvas.asciidoc;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import io.microservices.canvas.model.Service;
 import org.apache.commons.io.FileUtils;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import java.io.File;
 import java.io.IOException;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class CanvasSerdeTest {
 

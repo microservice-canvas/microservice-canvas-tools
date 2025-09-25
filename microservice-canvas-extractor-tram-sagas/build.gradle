@@ -7,3 +7,6 @@ dependencies {
     api "io.eventuate.tram.sagas:eventuate-tram-sagas-spring-orchestration-simple-dsl:$eventuateTramSagasVersion"
 
 }
+tasks.withType(Test).configureEach {
+    useJUnitPlatform()
+}
