@@ -3,9 +3,9 @@
 
 dependencies {
     api project(":microservice-canvas-extractor-spring")
-    api "org.springframework.boot:spring-boot-starter-web:$springBootVersion"
+    api "org.springframework.boot:spring-boot-starter-webmvc:$springBootVersion"
 
-    implementation "org.junit.jupiter:junit-jupiter:5.13.4"
+    testImplementation "org.junit.jupiter:junit-jupiter:$junitVersion"
 }
 tasks.withType(Test).configureEach {
     useJUnitPlatform()

@@ -5,11 +5,11 @@ dependencies {
     api project(":microservice-canvas-render")
     api project(":microservice-canvas-extractor-spring")
     api project(":microservice-canvas-extractor-spring-mvc")
-    api "com.fasterxml.jackson.module:jackson-module-kotlin:$jacksonVersion"
+    api "tools.jackson.module:jackson-module-kotlin:$jacksonVersion"
 
-    implementation "org.junit.jupiter:junit-jupiter:5.13.4"
+    testImplementation "org.junit.jupiter:junit-jupiter:$junitVersion"
 
-    testImplementation "org.springframework.boot:spring-boot-starter-test:$springBootVersion"
+    testImplementation "org.springframework.boot:spring-boot-starter-webmvc-test:$springBootVersion"
 
 }
 tasks.withType(Test).configureEach {

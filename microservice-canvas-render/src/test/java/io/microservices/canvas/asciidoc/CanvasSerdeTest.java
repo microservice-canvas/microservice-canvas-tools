@@ -1,6 +1,5 @@
 package io.microservices.canvas.asciidoc;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
 import io.microservices.canvas.model.Service;
 import org.apache.commons.io.FileUtils;
 import org.junit.jupiter.api.Test;
@@ -13,26 +12,26 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 public class CanvasSerdeTest {
 
   @Test
-  public void shouldSerializeToJson() throws JsonProcessingException {
+  public void shouldSerializeToJson() {
     String json = ServiceToJSon.toJson(ServiceMother.service);
     System.out.println(json);
   }
 
   @Test
-  public void shouldDeserializeFromJson() throws JsonProcessingException {
+  public void shouldDeserializeFromJson() {
     String json = ServiceToJSon.toJson(ServiceMother.service);
     Service service = ServiceToJSon.fromJson(json, Service.class);
     assertEquals(ServiceMother.service, service);
   }
 
   @Test
-  public void shouldSerializeToYaml() throws JsonProcessingException {
+  public void shouldSerializeToYaml() {
     String json = ServiceToJSon.toYaml(ServiceMother.service);
     System.out.println(json);
   }
 
   @Test
-  public void shouldDeserializeFromYaml() throws JsonProcessingException {
+  public void shouldDeserializeFromYaml() {
     String yaml = ServiceToJSon.toYaml(ServiceMother.service);
     Service service = ServiceToJSon.fromYaml(yaml, Service.class);
     assertEquals(ServiceMother.service, service);

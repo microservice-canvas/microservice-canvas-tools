@@ -28,11 +28,11 @@ dependencies {
 
     implementation project(":microservice-canvas-render")
     implementation "commons-io:commons-io:2.5"
-    implementation "org.junit.jupiter:junit-jupiter:5.13.4"
+    testImplementation "org.junit.jupiter:junit-jupiter:$junitVersion"
     implementation "commons-cli:commons-cli:1.4"
 
 
-    testImplementation "org.assertj:assertj-core:3.11.1"
+    testImplementation "org.assertj:assertj-core:$assertjVersion"
 }
 
 jar.dependsOn(":microservice-canvas-render:assemble")

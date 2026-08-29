@@ -1,9 +1,9 @@
 package io.microservices.canvas.asciidoc;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.dataformat.yaml.YAMLFactory;
-import com.fasterxml.jackson.module.kotlin.KotlinModule;
+import tools.jackson.databind.ObjectMapper;
+import tools.jackson.databind.json.JsonMapper;
+import tools.jackson.dataformat.yaml.YAMLMapper;
+import tools.jackson.module.kotlin.KotlinModule;
 import io.microservices.canvas.model.OperationEndpoint;
 import io.microservices.canvas.model.Service;
 import org.thymeleaf.TemplateEngine;
@@ -12,50 +12,32 @@ import org.thymeleaf.spring6.SpringTemplateEngine;
 import org.thymeleaf.templatemode.TemplateMode;
 import org.thymeleaf.templateresolver.ClassLoaderTemplateResolver;
 
-import java.io.IOException;
-
 public class ServiceToJSon {
 
+  private static final ObjectMapper jsonMapper = JsonMapper.builder()
+          .addMixIn(OperationEndpoint.class, OperationEndpointMixin.class)
+          .addModule(new KotlinModule.Builder().build())
+          .build();
+
+  private static final ObjectMapper yamlMapper = YAMLMapper.builder()
+          .addMixIn(OperationEndpoint.class, OperationEndpointMixin.class)
+          .addModule(new KotlinModule.Builder().build())
+          .build();
+
   public static <T> String toJson(T service) {
-    ObjectMapper om = new ObjectMapper().registerModule(new KotlinModule.Builder().build());
-    try {
-      return om.writeValueAsString(service);
-    } catch (JsonProcessingException e) {
-      throw new RuntimeException(e);
-    }
+    return jsonMapper.writeValueAsString(service);
   }
 
   public static String toYaml(Service service) {
-    ObjectMapper om = new ObjectMapper(new YAMLFactory()).registerModule(new KotlinModule.Builder().build());
-    try {
-      return om.writeValueAsString(service);
-    } catch (JsonProcessingException e) {
-      throw new RuntimeException(e);
-    }
+    return yamlMapper.writeValueAsString(service);
   }
 
   public static <T> T fromYaml(String yaml, Class<T> targetType) {
-    ObjectMapper om = new ObjectMapper(new YAMLFactory())
-            .addMixIn(OperationEndpoint.class, OperationEndpointMixin.class)
-            .registerModule(new KotlinModule.Builder().build())
-            ;
-    try {
-      return om.readValue(yaml, targetType);
-    } catch (IOException e) {
-      throw new RuntimeException(e);
-    }
+    return yamlMapper.readValue(yaml, targetType);
   }
 
   public static <T> T fromJson(String json, Class<T> targetType) {
-    ObjectMapper om = new ObjectMapper()
-            .addMixIn(OperationEndpoint.class, OperationEndpointMixin.class)
-            .registerModule(new KotlinModule.Builder().build())
-            ;
-    try {
-      return om.readValue(json, targetType);
-    } catch (IOException e) {
-      throw new RuntimeException(e);
-    }
+    return jsonMapper.readValue(json, targetType);
   }
 
   public static String toAsciidoc(Service service) {

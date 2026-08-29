@@ -6,27 +6,25 @@ buildscript {
 
 
     dependencies {
-        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:2.0.20"
+        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlinVersion"
     }
 }
 
-plugins {
-    id "org.jetbrains.kotlin.jvm" version "2.0.20"
-}
+apply plugin: "org.jetbrains.kotlin.jvm"
 
 
 dependencies {
 
     api project(":microservice-canvas-model")
     api("org.springframework.boot:spring-boot-starter-thymeleaf:$springBootVersion")
-    api "com.fasterxml.jackson.module:jackson-module-kotlin:$jacksonVersion"
-    api "com.fasterxml.jackson.dataformat:jackson-dataformat-yaml:$jacksonVersion"
+    api "tools.jackson.module:jackson-module-kotlin:$jacksonVersion"
+    api "tools.jackson.dataformat:jackson-dataformat-yaml:$jacksonVersion"
 
     testImplementation project(":microservice-canvas-builder")
     testImplementation "commons-io:commons-io:2.5"
-    testImplementation "org.hamcrest:hamcrest:2.2"
-    implementation "org.jetbrains.kotlin:kotlin-stdlib:2.0.20"
-    implementation "org.junit.jupiter:junit-jupiter:5.13.4"
+    testImplementation "org.hamcrest:hamcrest:$hamcrestVersion"
+    implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlinVersion"
+    testImplementation "org.junit.jupiter:junit-jupiter:$junitVersion"
 
 }
 tasks.withType(Test).configureEach {
